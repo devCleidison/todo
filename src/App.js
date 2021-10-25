@@ -11,6 +11,12 @@ import InputTask from "./components/InputTask";
 function App() {
   const [task, setTask] = useState([]);
 
+  const habdleKeyUp = (e) => {
+    if(e.code === 'Enter'){
+      handleCreateTask()
+    }
+  }
+
   const createNewTask = (taskValue) => {
     return {
       title: taskValue,
@@ -21,6 +27,7 @@ function App() {
 
   const handleCreateTask = () => {
     let taskValue = document.querySelector(".text-input").value;
+
     if (taskValue !== "") {
       const newTask = createNewTask(taskValue);
       setTask(() => [...task, newTask]);
@@ -57,7 +64,7 @@ function App() {
   return (
     <div className="App">
       <Header name="My To Do" />
-      <InputTask get={handleCreateTask} />
+      <InputTask get={handleCreateTask} onKeyPress={habdleKeyUp}/>
       {task !== "" ? (
         <Tasks
           task={task}
